@@ -1,0 +1,9 @@
+.board-container {
+    background: grey;
+    align-items: center;
+    justify-content: center;
+}
+
+.winningCell {
+    background: rgb(255, 125, 125);
+}

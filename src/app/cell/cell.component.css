@@ -1,0 +1,40 @@
+.cell-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.game-square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 90%;
+}
+
+.active {
+    cursor: pointer;
+    background: lightblue;
+}
+
+.inactive {
+    pointer-events: none;
+}
+
+.inactive-color {
+    background: lightgrey;
+}
+
+.cell {
+    text-align: center;
+}
+
+.lastPlayed {
+    background: lightgreen;
+}
+
+.winningCell {
+    background: rgb(255, 125, 125);
+}

@@ -1,0 +1,16 @@
+h1 {
+    transition: color .2s;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+h1 :leave {
+    transition: display 4s;
+}
+
+.header {
+    margin-top: 2rem;
+}

@@ -1,0 +1,16 @@
+<div class="header">
+  <h1>Meta Tic-Tac-Toe</h1>
+  <div>
+    <h2 *ngIf="!gameService.isOver">Tour de {{gameService.player}}</h2>
+    <h2 *ngIf="gameService.isOver">Victoire de {{gameService.player}}</h2>
+  </div>
+</div>
+
+
+<section class="metaboard-container">
+  <mat-grid-list cols="3" rowHeight="1:1">
+    <mat-grid-tile *ngFor="let board of gameService.metaBoard">
+      <app-board class="full-size" [board]="board"></app-board>
+    </mat-grid-tile>
+  </mat-grid-list>
+</section>

@@ -1,0 +1,6 @@
+<div class="cell-container">
+    <div class="game-square" [class.winningCell]="winningCell" [class.lastPlayed]="lastPlayed" [class.active]="active"
+        [class.inactive]="!active" [class.inactive-color]="!active && !winningCell" (click)="changeState()">
+        <div class="cell">{{state}}</div>
+    </div>
+</div>
