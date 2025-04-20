@@ -7,40 +7,37 @@ import { GameService, Cell, Board } from '../game.service';
   standalone: true,
   imports: [MatGridListModule],
   templateUrl: './cell.component.html',
-  styleUrl: './cell.component.css'
+  styleUrl: './cell.component.css',
 })
 export class CellComponent {
-
   @Input() cell!: Cell;
   @Input() parent!: Board;
 
-  constructor(public gameService: GameService) { }
+  constructor(private gameService: GameService) {}
 
-  public get parentId() {
+  get parentId() {
     return this.parent.id;
   }
 
-  public get id() {
+  get id() {
     return this.cell.id;
   }
 
-  public get lastPlayed() {
+  get lastPlayed() {
     return this.cell.lastPlayed;
   }
 
-  public get winningCell() {
+  get winningCell() {
     return this.cell.winningCell;
   }
 
-  public get state() {
+  get state() {
     return this.cell.state;
   }
 
-  public get active() {
+  get active() {
     return this.cell.active && this.gameService.metaBoard[this.parentId].active;
   }
-
-  ngOnInit() { }
 
   changeState() {
     if (this.cell.state === null && !this.gameService.isOver) {

@@ -1,17 +1,15 @@
-import { RtlScrollAxisType } from '@angular/cdk/platform';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GameService {
-
   private _metaBoard!: Board[];
   private _board!: Cell[];
   boardSize = 9;
   currentBoard: number | null = null;
   turnCount: number = 0;
-  player: "X" | "O" = "X";
+  player: 'X' | 'O' = 'X';
   isOver: boolean = false;
   private _lastPlayed: Cell | null = null;
 
@@ -22,7 +20,7 @@ export class GameService {
   }
 
   reset() {
-    this.player = "X";
+    this.player = 'X';
     this.turnCount = 0;
     this.isOver = false;
     this.board = this.resetBoard();
@@ -39,9 +37,11 @@ export class GameService {
         lastPlayed: false,
         winningCell: false,
         subBoard: this.resetBoard(),
-        get(i) { return this.subBoard[i]; }
-      })
-    };
+        get(i) {
+          return this.subBoard[i];
+        },
+      });
+    }
     return board;
   }
 
@@ -53,9 +53,9 @@ export class GameService {
         state: null,
         lastPlayed: false,
         winningCell: false,
-        active: true
-      })
-    };
+        active: true,
+      });
+    }
     return board;
   }
 
@@ -81,13 +81,16 @@ export class GameService {
 
   public set lastPlayed(value: Cell | null) {
     for (let board of this._metaBoard)
-      for (let cell of board.subBoard)
-        cell.lastPlayed = value == cell;
+      for (let cell of board.subBoard) cell.lastPlayed = value == cell;
     this._lastPlayed = value;
   }
 
   victory(board: Cell[]): boolean {
-    return this.checkDiag(board) || this.checkLine(board, "row") || this.checkLine(board, "col");
+    return (
+      this.checkDiag(board) ||
+      this.checkLine(board, 'row') ||
+      this.checkLine(board, 'col')
+    );
   }
 
   checkDiag(board: Cell[]) {
@@ -95,43 +98,45 @@ export class GameService {
       midSquare = board[4];
 
     for (let i = 0; i <= timesRun; i += 2) {
-
-      let
-        upperCorner = board[i],
+      let upperCorner = board[i],
         lowerCorner = board[8 - i];
 
       if (!!midSquare.state && !!upperCorner.state && !!lowerCorner.state) {
-        if (midSquare.state === upperCorner.state && upperCorner.state === lowerCorner.state) {
+        if (
+          midSquare.state === upperCorner.state &&
+          upperCorner.state === lowerCorner.state
+        ) {
           midSquare.winningCell = true;
           upperCorner.winningCell = true;
           lowerCorner.winningCell = true;
-          return true
+          return true;
         }
       }
     }
 
-    return false
+    return false;
   }
 
   checkLine(board: Cell[], type: string): boolean {
-    const
-      ROW = type === "row" ? true : false,
+    const ROW = type === 'row' ? true : false,
       DIST = ROW ? 1 : 3,
       INC = ROW ? 3 : 1,
       NUMTIMES = ROW ? 7 : 3;
 
     for (let i = 0; i < NUMTIMES; i += INC) {
-      let
-        firstCell = board[i],
+      let firstCell = board[i],
         secondCell = board[i + DIST],
-        thirdCell = board[i + (DIST * 2)];
+        thirdCell = board[i + DIST * 2];
 
       if (firstCell.state && secondCell.state && thirdCell.state) {
-        if (firstCell.state === secondCell.state && secondCell.state === thirdCell.state) {
+        if (
+          firstCell.state === secondCell.state &&
+          secondCell.state === thirdCell.state
+        ) {
           firstCell.winningCell = true;
           secondCell.winningCell = true;
           thirdCell.winningCell = true;
-          return true
+          return true;
         }
       }
     }
@@ -144,13 +149,13 @@ export class GameService {
 
     if (!this.victory(this.metaBoard)) {
       this.setActive(cell.id);
-      console.log("Still playing\n")
-      this.player = this.player === "X" ? "O" : "X";
+      console.log('Still playing\n');
+      this.player = this.player === 'X' ? 'O' : 'X';
       this.turnCount++;
     } else {
-      console.log("Game won by " + this.player + "\n")
+      console.log('Game won by ' + this.player + '\n');
       this.isOver = true;
-      this.cleanWinningCells()
+      this.cleanWinningCells();
     }
   }
 
@@ -167,8 +172,19 @@ export class GameService {
 
   public setBoardState(board: Board) {
     if (this.victory(board.subBoard)) {
-      console.log("Board %d won by %s!", board.id, this.player);
+      console.log('Board %d won by %s!', board.id, this.player);
       board.state = this.player;
+    } else {
+      // Check draw
+      let finished = true;
+      for (let cell of board.subBoard) {
+        if (!cell.state) {
+          finished = false;
+        }
+      }
+      if (finished) {
+        board.state = 'draw';
+      }
     }
   }
 

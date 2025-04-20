@@ -1,9 +1,15 @@
 .board-container {
-    background: grey;
-    align-items: center;
-    justify-content: center;
+  background: grey;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5%;
 }
 
 .winningCell {
-    background: rgb(255, 125, 125);
+  background: rgb(255, 125, 125);
+}
+
+.cell {
+  height: 100%;
+  width: 100%;
 }

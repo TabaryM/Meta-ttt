@@ -1,7 +1,7 @@
-<section class="board-container" [class.winningCell]="winningCell">
-    <mat-grid-list cols="3" rowHeight="1:1">
-        <mat-grid-tile *ngFor="let _ of gameService.metaBoard; let i = index">
-            <app-cell class="full-size" [cell]="board.get(i)" [parent]="board"></app-cell>
-        </mat-grid-tile>
-    </mat-grid-list>
-</section>
+<div class="board-container" [class.winningCell]="winningCell">
+  <mat-grid-list cols="3" rowHeight="1:1">
+    <mat-grid-tile *ngFor="let _ of gameService.metaBoard; let i = index">
+      <app-cell class="cell" [cell]="board.get(i)" [parent]="board"></app-cell>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

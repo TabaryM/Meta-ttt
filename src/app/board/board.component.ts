@@ -9,13 +9,12 @@ import { GameService, Board } from '../game.service';
   standalone: true,
   imports: [CommonModule, MatGridListModule, CellComponent],
   templateUrl: './board.component.html',
-  styleUrl: './board.component.css'
+  styleUrl: './board.component.css',
 })
 export class BoardComponent {
-
   @Input() board!: Board;
 
-  constructor(public gameService: GameService) { }
+  constructor(public gameService: GameService) {}
 
   public get id() {
     return this.board.id;
@@ -27,8 +26,5 @@ export class BoardComponent {
 
   public get winningCell() {
     return this.board.winningCell;
-  }
-
-  ngOnInit() {
   }
 }

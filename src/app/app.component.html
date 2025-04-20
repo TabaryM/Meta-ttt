@@ -1,16 +1,30 @@
-<div class="header">
-  <h1>Meta Tic-Tac-Toe</h1>
-  <div>
-    <h2 *ngIf="!gameService.isOver">Tour de {{gameService.player}}</h2>
-    <h2 *ngIf="gameService.isOver">Victoire de {{gameService.player}}</h2>
-  </div>
-</div>
-
-
-<section class="metaboard-container">
-  <mat-grid-list cols="3" rowHeight="1:1">
-    <mat-grid-tile *ngFor="let board of gameService.metaBoard">
-      <app-board class="full-size" [board]="board"></app-board>
-    </mat-grid-tile>
-  </mat-grid-list>
-</section>
+<mat-card class="root">
+  <mat-card-header class="header">
+    <mat-card-title>
+      <h1>Meta Tic-Tac-Toe</h1>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <h2>
+        @if (!gameService.isOver) {
+          Tour de {{ gameService.player }}
+        } @else {
+          Victoire de {{ gameService.player }}
+        }
+      </h2>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="game-container">
+    <mat-grid-list
+      class="metaboard-container"
+      cols="3"
+      rowHeight="1:1"
+      gutterSize="0"
+    >
+      @for (board of gameService.metaBoard; track board.id) {
+        <mat-grid-tile>
+          <app-board class="board" [board]="board"></app-board>
+        </mat-grid-tile>
+      }
+    </mat-grid-list>
+  </mat-card-content>
+</mat-card>
